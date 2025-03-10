@@ -79,6 +79,8 @@ int main()
             lote_numeros.push(numero);
         }
 
+        Leitor.close();
+
         parseETraduzir(lote_numeros, binario_final, decimal_final);
 
         stack<int> vazio;
