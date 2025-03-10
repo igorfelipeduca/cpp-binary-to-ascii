@@ -4,6 +4,7 @@
 #include <string>
 #include <bitset>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -83,7 +84,7 @@ int main()
         stack<int> empty;
         batch_numbers = empty;
 
-        cout << "\n ---------- binary ----------\n";
+        cout << "\n ---------- binario ----------\n";
         cout << final_binary;
 
         cout << "\n\n";
