@@ -8,29 +8,29 @@
 
 using namespace std;
 
-string stackToBinary(stack<int> numbers_stack)
+string pilhaParaBinario(stack<int> pilha_numeros)
 {
-    string binary;
+    string binario;
 
-    while (!numbers_stack.empty())
+    while (!pilha_numeros.empty())
     {
-        binary += numbers_stack.top();
-        numbers_stack.pop();
+        binario += pilha_numeros.top();
+        pilha_numeros.pop();
     }
 
-    reverse(binary.begin(), binary.end());
+    reverse(binario.begin(), binario.end());
 
-    return binary;
+    return binario;
 }
 
-string binaryToDecimal(string binary)
+string binarioParaDecimal(string binario)
 {
-    return to_string(stoi(binary, nullptr, 2));
+    return to_string(stoi(binario, nullptr, 2));
 }
 
-string binaryStringToAscii(string binary)
+string binarioParaAscii(string binario)
 {
-    stringstream sstream(binary);
+    stringstream sstream(binario);
     string ascii;
     while (sstream.good())
     {
@@ -43,63 +43,63 @@ string binaryStringToAscii(string binary)
     return ascii;
 }
 
-void parseAndTranslate(stack<int> &batch_numbers, string &final_binary, string &final_decimal)
+void parseETraduzir(stack<int> &lote_numeros, string &binario_final, string &decimal_final)
 {
-    string binary = stackToBinary(batch_numbers);
+    string binario = pilhaParaBinario(lote_numeros);
 
-    final_binary += binary;
-    final_decimal += binaryToDecimal(binary) + " ";
+    binario_final += binario;
+    decimal_final += binarioParaDecimal(binario) + " ";
 
-    while (!batch_numbers.empty())
+    while (!lote_numeros.empty())
     {
-        batch_numbers.pop();
+        lote_numeros.pop();
     }
 }
 
 int main()
 {
-    ifstream Reader;
-    string final_translation;
+    ifstream Leitor;
+    string traducao_final;
 
-    Reader.open("codigo.txt");
+    Leitor.open("codigo.txt");
 
-    if (Reader.is_open())
+    if (Leitor.is_open())
     {
-        char number;
-        stack<int> batch_numbers;
-        string numbers_string, final_binary, final_decimal;
+        char numero;
+        stack<int> lote_numeros;
+        string string_numeros, binario_final, decimal_final;
 
-        while (Reader.get(number))
+        while (Leitor.get(numero))
         {
-            if (batch_numbers.size() == 8)
+            if (lote_numeros.size() == 8)
             {
-                parseAndTranslate(batch_numbers, final_binary, final_decimal);
+                parseETraduzir(lote_numeros, binario_final, decimal_final);
             }
 
-            batch_numbers.push(number);
+            lote_numeros.push(numero);
         }
 
-        parseAndTranslate(batch_numbers, final_binary, final_decimal);
+        parseETraduzir(lote_numeros, binario_final, decimal_final);
 
-        stack<int> empty;
-        batch_numbers = empty;
+        stack<int> vazio;
+        lote_numeros = vazio;
 
         cout << "\n ---------- binario ----------\n";
-        cout << final_binary;
+        cout << binario_final;
 
         cout << "\n\n";
 
         cout << "\n ---------- decimal ----------\n";
-        cout << final_decimal;
+        cout << decimal_final;
 
         cout << "\n\n";
 
         cout << "\n ---------- ascii ----------\n";
-        cout << binaryStringToAscii(final_binary);
+        cout << binarioParaAscii(binario_final);
     }
     else
     {
-        cout << "\nError reading file";
+        cout << "\nErro ao ler o arquivo";
     }
 
     return 0;
